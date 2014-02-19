@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>archlinux简单网络配置与命令</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Naiteluo</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <p>这里只是给出简单的网络配置和常用命令，备忘。详细的可查阅官方wiki上的：
+Configuring Network</p>
+
+<p>首先是/etc/rc.conf的配置，动态获取ip的只需要选择一个接口：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">interface=&quot;eth0&quot;
+address=
+netmask=
+gateway=
+</code></pre></div>
+<p>想要自定义dns，在/etc/dhcpcd.conf</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">nohook resolv.conf
+</code></pre></div>
+<p>并将自己的dns服务器加入/etc/resolv.conf中。</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">/*
+ * 静态ip的还不太了解，
+ * 挖个坑以后再填。
+ */
+</code></pre></div>
+<p>重启nerwork daemon，启用配置:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># /etc/rc.d/network restart
+</code></pre></div>
+<p>通过ping看是否已成功连接</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ ping -c 3 www.google.com
+</code></pre></div>
+<p>手动连接或断开网络接口：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># ip link set  up/down
+</code></pre></div>
+<p>接下来是无线网络设置与连接，需要先安装wireless_tools和取得哦给相关软件包madwifi:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># pacman -S wireless_tools
+# pacman -S madwifi
+</code></pre></div>
+<p>确定接口和相应模块</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># lspci | grep -i net
+</code></pre></div>
+<p>确定此模块已经被载入。使用命令</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># lsmod | grep 
+</code></pre></div>
+<p>接下来可以开始连接了，确定驱动已经创建了可用的接口(wlanX, ethX, athX):</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># iwconfig
+</code></pre></div>
+<p>启用无线接口:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># ip link set wlan0 up
+</code></pre></div>
+<p>搜索可用的接入点</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># iwlist wlan0 scan
+</code></pre></div>
+<p>以下是几种不同的wifi的接入：</p>
+
+<ul>
+<li><p>No encryption 无加密的</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># iwconfig wlan0 essid &quot;MyEssid&quot;
+</code></pre></div></li>
+<li><p>WEP</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># #hecadecimal key
+# iwconfig wlan0 essid &quot;MyEssid&quot; key 1234567890
+# #ASCII key
+# iwconfig wlan0 essid &quot;MyEssid&quot; key s:asciikey
+</code></pre></div></li>
+</ul>
+
+<p>确定是否连接到接入点：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># iwconfig wlan0
+</code></pre></div>
+<p>动态分配IP</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># dhcpcd wlan0
+</code></pre></div>
+<p>当然，最简单的还是用网络管理器如：Wicd,NetworkManager.不过我在连接校园网的wifi时用networkmanager未果，故推荐wicd。</p>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Your Name<br />
+                What You Are<br />
+                you@example.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>一些觉得比较有用的JavaScript题目[解答]</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Naiteluo</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>一些觉得比较有用的JavaScript题目[解答]</h2>
+<p class="meta">22 Sep 2012</p>
+
+<div class="post">
+<h2>关于全局变量局部变量的四道小题目</h2>
+
+<p>写出以下各段代码的运行结果。</p>
+
+<ul>
+<li><p>第一题：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var a = 10;
+sayHi();
+function sayHi() {
+    var a = 20;
+    alert(a);
+}
+alert(a);
+</code></pre></div>
+<p>运行结果： 20 10</p></li>
+<li><p>第二题：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var a = 10;
+sayHi();
+function sayHi() {
+    a = 20;
+    alert(a);
+}
+alert(a);
+</code></pre></div>
+<p>运行结果： 20 20</p></li>
+<li><p>第三题：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var a = 10;
+sayHi();
+function sayHi() {
+    a = a + 10;
+    alert(a);
+    return a;
+}
+alert(a);
+alert(sayHi() + 10);
+</code></pre></div>
+<p>运行结果： 20 20 30 40</p></li>
+<li><p>第四题：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var a = 10;
+sayHi();
+function sayHi() {
+    var a = a + 10;
+    alert(a);
+    return a;
+}
+alert(a);
+alert(sayHi() + 10);
+</code></pre></div>
+<p>运行结果： NAN 10 NAN NAN</p></li>
+</ul>
+
+<p>总结：这几道题其实挺简单的，只要区分好全局变量和局部变量就OK，最后一题里面在sayHi里面的a使局部变量，但是在 <code>a + 10</code> 前a只声明未赋值，所以是<code>undefined</code>， <code>undefined</code>加上一个Number，则得到NAN。</p>
+
+<blockquote>
+<p>摘自<a href="http://www.nowamagic.net/librarys/veda/detail/225">四道JavaScript面试题检测你的js基本功</a></p>
+</blockquote>
+
+<h2>三道搜狐的面试题</h2>
+
+<ul>
+<li><p>题目一，实现一个遍历数组或对象里所有成员的迭代器</p>
+
+<p>此外，可以通过回调函数的返回值，来终止迭代。</p>
+
+<p>这道题比较有用的知识点是判断数组和对象，<code>arr instanceof Array</code>在一般情况下还是管用的，但是如果涉及到不同的JavaScript环境，不同的框架，则不完全可靠。以下是兼容的解决方法</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var isArray = Array.isArray || function (o) {
+    return typeof o === &#39;string&#39; &amp;&amp;
+        Object.prototype.toString.call(o) === &#39;[object Array]&#39;;
+}
+</code></pre></div>
+<p>还使用到<code>Function.call</code>或者<code>Function.apply</code>。call指定函数的this和参数并调用。这两个的区别在于参数的传入方式，如下：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">func.call(thisObj, arg0, arg1, arg2);
+func.apply(this.Obj, [arg0, arg1, arg2]);
+</code></pre></div>
+<p>答案代码：<a href="/demos/ex/sohu/ex1.html">soho/ex1.html</a></p></li>
+<li><p>题目二，实现一个叫Man的类，包含attr, words, say三个方法</p>
+
+<p>比较难的有三个地方。</p>
+
+<p>首先，要让Man支持两种调用方式，一种是java式的<code>var me = Man(options);</code>，另一种是使用<code>new</code>操作符的<code>var me = new Man(options);</code>。第一种方法的<code>this</code>指向的是当前执行环境，而第二种的话，会新建一个空对象，<code>this</code>指向这个对象本身，返回给变量<code>me</code>。要想使用prototype来添加方法的话，使用第二种会比较好。基本是按照第二种来写构造函数，对第一种作特殊处理。</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">if (this.constructor !== Man) {
+    return new Man(options);
+}
+</code></pre></div>
+<p>如果this的构造器不是Man的话，则使用第二种方式创建实例。但是我发现这里面有个比较大的bug，就是当在Man的实例方法里面用this的构造器是Man，这样的话这个判断就无效了。使用另外一种方法可以解决这个问题：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Man ＝ function (options) {
+    return new Man.prototype.init(options);
+}
+
+// 真正的构造器
+Man.prototype.init = function (options) {
+
+}
+
+Man.prototype.init.prototype {
+    attr: function () {},
+    words: function (str) {},
+    say: function () {}
+}
+</code></pre></div>
+<p>上面的写法实际上构造器是<code>Man.prototype.init</code>，所以<code>me instanceof Man</code>返回的是<code>false</code>，所以我觉得这种写法不如上面，而且还比较难理解。</p>
+
+<p>第二就是在测试代码里面要求不能直接直接通过用对象的属性来写<code>fullname</code>和<code>gender</code>：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">me.fullname = &quot;废柴&quot;;
+me.gender = &quot;人妖&quot;;
+</code></pre></div>
+<p>不可以这样去改变实例的这两个属性，也就是相当于让这两个属性变得私有。实现的方法是，在构造器内用<code>var</code>定义这两个变量，然后创建特权函数getter setter来操作这这两个属性，如下：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Man = function (options) {
+
+    // 两种调用方式 var p = Man(options); or var p = new Man(options);
+    if (this.constructor !== Man) {
+        return new Man(options);
+    }
+
+    // private variables 私有变量
+    var fullname, 
+        gender;
+
+    // privilege functions 特权函数
+    this.setFullname = function (_name) {
+        fullname = _name;
+    }
+    this.setGender = function (_gender) {
+        gender = _gender;
+    }
+    this.getFullname = function () {
+        return fullname || &#39;&lt;用户未输入&gt;&#39;;
+    }
+    this.getGender = function () {
+        return gender || &#39;&lt;用户未输入&gt;&#39;;
+    }
+
+    this.attr(options);
+}
+</code></pre></div>
+<p>再在<code>Man.prototype</code>中定义<code>attr</code>,<code>words</code>,<code>say</code>方法。</p>
+
+<p>第三个比较麻烦的是<code>attr</code>方法，它可以接受多种参数形式。不过只需要对参数个数的类型作判断分情况处理就可以了。还需注意的是，我们的fullname和gender都是需要用setter，getter来操作的，其他值直接通过this的属性读写。当attr的参数中有这两个特殊情况时也要分开处理。</p>
+
+<p>答案代码：<a href="/demos/ex/sohu/ex2.html">soho/ex2.html</a></p></li>
+</ul>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Your Name<br />
+                What You Are<br />
+                you@example.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

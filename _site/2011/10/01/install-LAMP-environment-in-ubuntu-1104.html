@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Ubuntu 11.04 LAMP安装配置</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Naiteluo</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Ubuntu 11.04 LAMP安装配置</h2>
+<p class="meta">01 Oct 2011</p>
+
+<div class="post">
+<p>11.04是lts的版本，以后用ubuntu的话可以作为首选，这里纪录一下LAMP的配置方法。</p>
+
+<ol>
+<li><p>首先是安装LAMP，一个命令：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install apache2 php5 libapache2-mod-php5 mysql-server libapache2-mod-auth-mysql php5-mysql phpmyadmin 
+</code></pre></div>
+<p>期间会要求你输入mysql数据库的root用户密码，选择服务器类型［apache］，phpMyAdmin的密码等。</p></li>
+<li><p>装完之后重启一下apache，命令：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo /etc/init.d/apache2 restart
+</code></pre></div></li>
+<li><p>把安装的phpmyadmin 链接过来，在/var/www/下用命令：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">ln -s /usr/share/phpmyadmin phpmyadmin
+</code></pre></div></li>
+</ol>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Your Name<br />
+                What You Are<br />
+                you@example.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

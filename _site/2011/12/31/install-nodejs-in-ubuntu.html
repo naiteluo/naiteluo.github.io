@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Ubuntu 11.04 Node.js 配置</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Naiteluo</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Ubuntu 11.04 Node.js 配置</h2>
+<p class="meta">31 Dec 2011</p>
+
+<div class="post">
+<p>实在是很折腾，冲着一个好的设计环境换回了windows7，但是感觉做开发的话还是linux下限值会比较小，于是用虚拟机，刚开始装回archlinux，发现vmware下装archlinux又是另外的折腾了，装不好gnome3，不能忍受难看的界面，另外也懒得折腾了，于是改装了ubuntu，10.10不太稳定，选择了10.04 lts。啥都不管了，直奔node的配置，找了篇国外的文章，一边操作一边翻译一下:</p>
+
+<p>由于直奔node而去，之前什么都没有配置过，所以可以直接按照一下来满足node.js的alias：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install g++ curl libssl-dev apache2-utils
+</code></pre></div>
+<p>最简单的方法当然用git下载node的源码啦，先安装git</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install git-core
+git clone git://github.com/joyent/node.git
+</code></pre></div>
+<p>我这里直接在官网上下载了包：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">tar -zxf node-v0.6.5.tar.gz
+cd node-v0.6.5
+./configure
+make
+sudo make install
+</code></pre></div>
+<p>接下来是npm，One Line Install</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">curl http://npmjs.org/install.sh | sh
+</code></pre></div>
+<p>作者还给喜欢很多行安装方法的人提供了方法，遇到如权限问题等，具体可以到<a href="http://npmjs.org">npm官网</a>上查看</p>
+
+<p>OK啦，又开始nodejs啦</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Your Name<br />
+                What You Are<br />
+                you@example.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

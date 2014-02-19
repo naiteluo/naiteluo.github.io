@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Archlinux 安装配置问题</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Naiteluo</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <p>已经重装了6、7 archlinux了，每次都因为一些琐碎的问题无法解决而选择重装，这次静下心来读wiki，看帖子，总算把之前积累的问题大概都解决了。</p>
+
+<p>用的默认的network进行网络管理，开机启动特别慢，而且gnome启动后的networkmanager因为冲突而disabled。networkmanager是一个DAEMON,可以手动用/etc/rc.d/networkmanager start来启动它，更好地是将其加入/etc/rc.conf的DAEMON列表中，并将原来的network用’!&#39;感叹号取消掉，即可。安装network-manager-applet后就能在gnome里显示图标方便使用。</p>
+
+<p>此后发现了一个很严重的问题，nerworkmanager连不上校园网，网上也很多说wifi无法连接的文章，与其自己修改到崩溃，不如早点换一个，就试用了wicd，目前尚且完美。安装：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># pacman -S wicd
+# pacman -S wicd-gtk
+</code></pre></div>
+<p>开启前必须关闭所有网络的daemons,</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># rc.d stop network
+# rc.d stop dhcpcd
+# rc.d stop networkmanager
+</code></pre></div>
+<p>设置DAEMONS，依赖dbus，前面禁用其他网络管理软件：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># vim /etc/rc.conf
+DAEMONS=(syslog-ng dbus !network !dhcdbd !networkmanager wicd ...)
+~
+~
+</code></pre></div>
+<p>后续工作咯</p>
+
+<p>ibus1.4安装完后无法显示输入法，google之网友们说是一个bug，修复方法如下：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo pacman -S abs
+sudo abs community/ibus-sunpinyin
+mkdir ~/abs
+cp -r /var/abs/community/ibus-sunpinyin ~/abs
+cd ~/abs/ibus-sunpinyin
+makepkg -s
+sudo pacman -U ibus-sunpinyin-2.0.3-1-*.pkg.tar.xz
+</code></pre></div>
+<p>并在~/.profile文件中加入以下代码让其自启动：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -d -x
+</code></pre></div>
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Your Name<br />
+                What You Are<br />
+                you@example.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

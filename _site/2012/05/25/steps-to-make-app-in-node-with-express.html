@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Steps to make app in node with express</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Naiteluo</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Steps to make app in node with express</h2>
+<p class="meta">25 May 2012</p>
+
+<div class="post">
+<h2>Preparation</h2>
+
+<p>安装配置好node.js和npm。</p>
+
+<h2>Steps</h2>
+
+<ol>
+<li><p>创建App文件夹，进入文件夹</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">mkdir guess
+cd guess
+</code></pre></div></li>
+<li><p>用npm下载express</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">npm install express
+</code></pre></div></li>
+<li><p>用Express初始化App，可能会警告文件夹非空，选择y继续</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">./node_module/express/bin/express .
+</code></pre></div></li>
+<li><p>文件目录如下：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">.
+├── app.js                # 应用的入口，主文件
+├── node_modules      # node 模块
+│   └── express           
+├── package.json      # 配置文件
+├── public                # 公共文件，静态文件
+│   ├── images                # 图片
+│   ├── javascripts           # 前端js
+│   └── stylesheets           # 样式表
+├── routes                # 路由文件
+│   └── index.js
+└── views             # 模版
+    ├── index.jade
+    └── layout.jade
+</code></pre></div></li>
+<li><p>打开package.json文件，这个文件是npm用来获取app的信息和相关依赖module信息的，修改如下：</p></li>
+</ol>
+
+<div class="highlight"><pre><code class="javascript"><span class="lineno"> 1</span>         <span class="p">{</span>
+<span class="lineno"> 2</span>          <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;guess&quot;</span>
+<span class="lineno"> 3</span>        <span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.1&quot;</span>
+<span class="lineno"> 4</span>        <span class="p">,</span> <span class="s2">&quot;private&quot;</span><span class="o">:</span> <span class="kc">true</span>
+<span class="lineno"> 5</span>        <span class="p">,</span> <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="lineno"> 6</span>            <span class="s2">&quot;express&quot;</span><span class="o">:</span> <span class="s2">&quot;2.5.8&quot;</span>
+<span class="lineno"> 7</span>          <span class="p">,</span> <span class="s2">&quot;jade&quot;</span><span class="o">:</span> <span class="s2">&quot;&gt;= 0.0.1&quot;</span>
+<span class="lineno"> 8</span>          <span class="p">,</span> <span class="s2">&quot;socket.io&quot;</span> <span class="o">:</span> <span class="s2">&quot;&gt;= 0.0.1&quot;</span>
+<span class="lineno"> 9</span>        <span class="p">}</span>
+<span class="lineno">10</span>      <span class="p">}</span>
+<span class="lineno">11</span>      
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">我们添加了socket.io module，保存。再用npm来安装所有依赖的modules。
+
+    npm install
+</code></pre></div>
+<ol>
+<li> 基本的配置已经完成了，接下来我们编辑./views/index.js</li>
+</ol>
+
+<div class="highlight"><pre><code class="javascript"><span class="lineno">1</span>      <span class="cm">/*</span>
+<span class="lineno">2</span> <span class="cm">      * GET home page.</span>
+<span class="lineno">3</span> <span class="cm">      */</span>
+<span class="lineno">4</span>       
+<span class="lineno">5</span>       <span class="nx">exports</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+<span class="lineno">6</span>         <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Guess&#39;</span> <span class="p">})</span>
+<span class="lineno">7</span>       <span class="p">};</span>
+<span class="lineno">8</span>       
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">将title修改成我们应用的名字：Guess。
+</code></pre></div>
+<ol>
+<li><p>接下来就可以运行程序了</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">node app.js
+Express server listening on port 3000 in development mode
+</code></pre></div>
+<p>在浏览器中访问：<a href="http://localhost:3000/">http://localhost:3000/</a> ，效果如下:</p>
+
+<blockquote>
+<h1>Guess</h1>
+
+<p>Welcome to Guess</p>
+</blockquote></li>
+</ol>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Your Name<br />
+                What You Are<br />
+                you@example.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>
