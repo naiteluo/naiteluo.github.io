@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> postMessage调用示例 (parent 页)</title>
+    <script src="http://tb1.bdstatic.com/tb/cms/postmessage/messenger.js"></script>
+    <script src="http://tb1.bdstatic.com/tb/cms/postmessage/json2.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <style>
+        iframe {
+            margin: 10px;
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p>
+        <span class="label label-danger">parent页</span>
+        parent页域名如下: 
+        <script>document.write('(' + location.protocol + '//' + location.host + ')');</script>
+    </p>
+    <p>
+        iframe页：
+    </p>
+    <p>
+        <iframe id="eciticIframe" src="messenger_iframe.html" width="550px" height="300px"></iframe>
+    </p>
+
+    <pre>
+# 说明
+
+1. postMessage库，单独引用即可不依赖其他基础库；压缩包中包含了源码，也可直接使用贴吧的cdn地址调用：http://tb1.bdstatic.com/tb/cms/postmessage/messenger.js
+2. 贴吧侧接受的数据仅限定为JSON字符串，第三方请使用JSON.stringfy()转换JSON对象，ie6下可添加 json2.js；压缩包中包含了源码，也可直接使用贴吧的cdn地址调用：http://tb1.bdstatic.com/tb/cms/postmessage/json2.js
+3. 中信方调用方法请参考 messenger_iframe.html 
+4. 打开 messenger_parent.html 页面可查看整个流程的效果
+    </pre>
+</div>
+
+<script>
+	/**
+     * postMessage通信方案，贴吧方示例代码，非线上实际代码
+     * @author 谭家玮
+     * @tel 18600213538
+     *
+     * 说明：
+     * 1. 仅供示例所用，中信方可不关注本文件中的代码
+     * 
+     */
+    var messengerConfig = {
+        projectName: 'EciticActivity',
+        parentPageName: 'tiebaEciticPage',
+        iframePageName: 'eciticIframe'
+    };
+
+    var iframeElement = document.getElementById('eciticIframe');
+
+    var messenger = new Messenger(messengerConfig.parentPageName, messengerConfig.projectName);
+
+    messenger.listen(function (data) {
+    	data = JSON.parse(data);
+        if (data && data.command === 'platform_ecitic_success') {
+        	alert('父页面提示：申请成功！');
+        }
+    });
+
+    messenger.addTarget(iframeElement.contentWindow, messengerConfig.iframePageName);
+
+</script>
+</body>
+</html>

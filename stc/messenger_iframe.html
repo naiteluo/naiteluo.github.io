@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> postMessage调用示例 (iframe 页)</title>
+    <!-- postMessage库，单独引用即可不依赖其他基础库 -->
+    <script src="http://tb1.bdstatic.com/tb/cms/postmessage/messenger.js"></script>
+    <!-- 贴吧侧接受的数据仅限定为JSON字符串，第三方请使用JSON.stringfy()转换JSON对象，ie6下可添加 json2.js -->
+    <script src="http://tb1.bdstatic.com/tb/cms/postmessage/json2.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <p>
+        <span class="label label-danger">iframe页</span>
+        iframe页域名如下: 
+        <script>document.write('(' + location.protocol + '//' + location.host + ')');</script>
+    </p>
+    <p>
+        点击申请按钮模拟申请行为，并对父页面发送成功消息，调起父页面的测试弹窗
+    </p>
+    <p>
+        <button type="button" class="btn btn-primary" id="apply">申请</button>
+    </p>
+</div>
+
+<script>
+
+    /**
+     * postMessage通信方案，中信端代码
+     * @author 谭家玮
+     * @tel 18600213538
+     *
+     * 说明：
+     * 1. postMessage库，单独引用即可不依赖其他基础库
+     * 2. 贴吧侧接受的数据仅限定为JSON字符串，第三方请使用JSON.stringfy()转换JSON对象，ie6下可添加 json2.js
+     * 
+     */
+
+    /**
+     * messenger配置
+     */
+    var messengerConfig = {
+        // 项目名，中信方不需要修改
+        projectName: 'EciticActivity',
+        // 父页面名，中信方不需要修改
+        parentPageName: 'tiebaEciticPage',
+        // iframe页面名，中信方不需要修改
+        iframePageName: 'eciticIframe'
+    };
+
+    // 初始化messenger
+    var messenger = new Messenger(messengerConfig.iframePageName, messengerConfig.projectName);
+
+    // 添加目标父页面
+    messenger.addTarget(window.parent, messengerConfig.parentPageName);
+
+    // 调起父页面的成功处理函数
+    function callTiebaPage () {
+        /**
+         * 数据格式为贴吧既定要求，请
+         */
+        var data = {
+            // 指令号，中信方不需要修改
+            command: 'platform_ecitic_success',    
+            //数据参数，为空即可
+            data: {
+
+            }
+        };
+        // 贴吧侧接受的数据仅限定为JSON字符串，详见代码说明2
+        var dataJsonString = JSON.stringify(data);
+        // 向目标父页面发送消息
+        messenger.targets[messengerConfig.parentPageName].send(dataJsonString);
+    }
+
+    // 模拟点击按钮提交的动作
+    document.getElementById('apply').addEventListener('click', function () {
+        // if (申请成功) {
+        callTiebaPage();
+        // }
+    });
+</script>
+</body>
+</html>
