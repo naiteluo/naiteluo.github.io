@@ -1,0 +1,35 @@
+1. 访问页面 从请求到渲染（主要：http，浏览器本身）
+    - [浏览器的加载过程] 
+2. HTTP
+    - 缓存相关 [Caching Tutorial]，这篇文章覆盖了大部分知识点
+    - gzip
+    - Expires或Cache-Control
+    - 数据传输
+    - 文件压缩
+3. 浏览器本身
+    - 构建dom树
+    - 构建render树
+    - 布局layout
+    - 渲染
+    - 相关阅读：
+        + [How browsers work]
+        + [Rendering: repaint, reflow/relayout, restyle]
+4. 工具
+    - yslow 看网络性能
+    - dynatrace js性能
+    - chrome开发者工具
+5. 监控
+    - 用JS在页面打点（抽样）
+    - [前段数据统计分析平台]
+    - [UAQ]
+6. [Google Speed]
+
+---
+
+[浏览器的加载过程]: http://wuduoyi.com/note/what-happen-when-browser-loading-the-page/ "浏览器的加载过程"
+[Caching Tutorial]: https://www.mnot.net/cache_docs/ "Caching Tutorial"
+[How browsers work]: http://taligarsiel.com/Projects/howbrowserswork1.htm "How browsers work"
+[Rendering: repaint, reflow/relayout, restyle]: http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/ "Rendering: repaint, reflow/relayout, restyle"
+[Google Speed]: https://developers.google.com/speed/ "Google Speed"
+[前段数据统计分析平台]: http://dp.baidu.com/ "前段数据统计分析平台"
+[UAQ]: http://uaq.baidu.com/uaq3/index.html "UAQ"
