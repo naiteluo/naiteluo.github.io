@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>"谭家玮"</title>
+    <link rel="stylesheet" href="github.css" />
+    <style type="text/css">
+      body {
+        width: 960px;
+        margin: 0 auto;
+        padding: 40px 10px 0px 10px;
+        /* border-top: 1px solid black; */
+        font-family: Courier, monospace;
+      }
+
+      body:after {
+        content: " ";
+        display: block;
+        clear: both;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      ul li,
+      p {
+        margin: 8px 0;
+      }
+
+      p {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      header {
+        float: left;
+        width: 320px;
+        padding: 0px 10px 10px 10px;
+      }
+
+      section,
+      footer {
+        float: right;
+        width: 600px;
+        padding: 0px 10px 10px 10px;
+      }
+
+      .subject {
+        padding-bottom: 10px;
+      }
+
+      .subject.last-subject {
+        padding-bottom: 0px;
+      }
+
+      .subject blockquote {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>&lt;谭家玮&gt;</h1>
+      <ul>
+        <li>电话：18600213538</li>
+        <li>邮箱：naiteluo@qq.com</li>
+        <li>生日：1991.02.05</li>
+      </ul>
+      <!-- <pre><code>let infos = {
+    tel: '18600213538',
+    email: 'naiteluo@qq.com'
+    birthday: '1991-02-05'
+}</code></pre> -->
+      <h2>About me</h2>
+      <p>
+        对技术抱有热忱与追求。希望通过coding将自己的设计理念和创意呈现在别人的面前，以微薄之力改变世界。
+      </p>
+      <h2>Skills</h2>
+      <ul>
+        <li>前端相关基础技术栈</li>
+        <li>精通JavaScript，TypeScript</li>
+        <li>精通Hybrid App开发</li>
+        <li>复杂Web Assembly应用开发经验</li>
+        <li>熟悉主流开发框架</li>
+        <li>熟悉主流工程化自动化工具</li>
+        <li>熟悉Golang</li>
+        <li>Node.js开发经验</li>
+        <li>PHP后端开发经验</li>
+        <li>熟悉Photoshop，审美在线</li>
+      </ul>
+    </header>
+
+    <section>
+      <h2>Experiences</h2>
+      <ul>
+        <li class="subject">
+          <p>
+            ［2018.08 ~ 2019.10］<strong>
+              旷视科技股份有限公司
+            </strong>
+          </p>
+          <blockquote>
+            SRG软件部前端技术组负责人，参与核心产品“仓储业务地图编辑器”，又名河图规划平台的设计与开发。河图系统是一个大型仓储规划系统，需要支持上万平米的仓库地图和地图规划的可视化编辑，数据处理。难点在于要在前端进行特大地图的渲染和编辑，地图上需要支持理论10w个业务点的数据处理和可视化的数据展现。其中我主要负责的是项目的整体设计和wasm部分的开发。
+          </blockquote>
+          <ul>
+            <li>
+              使用WebAssembly进行大量复杂数据的处理，作为业务模型运算和交互状态处理的核心模块。复杂处理数据量达数十兆的地图数据的核心模块，将业务数据处理成渲染数据输出到渲染引擎，处理交互和管理交互状态
+            </li>
+            <li>
+              定制的WebGL 2D渲染引擎，使用WebGL
+              Shader减小JS到显存的数据交互来实现渲染性能的最大化，来实现大地图的高性能渲染和交互渲染。同时利用WebGL的viewport
+              API实现平滑的视口操作，大地图也能流畅平滑地任意拖动和缩放
+            </li>
+            <li>
+              针对大数据量的内容历史栈的设计，在保证性能的前提下同时支持前端撤销重做和后端的增量保存，且后端UI使用node，部分核心数据的Model代码能实现同构
+            </li>
+          </ul>
+        </li>
+        <li class="subject">
+          <p>
+            ［2016.02 ~ 2018.07］<strong>
+              人人行科技股份有限公司（借贷宝）
+            </strong>
+          </p>
+          <blockquote>
+            前端技术组负责人，主导借贷宝移动端Hybrid架构设计及开发，前端工程化及相关性能
+            优化、架构升级。借贷宝App内的多个核心业务页面使用Hybrid的方式进行开发，针对本App的业务特点，需要支持业务的灵活快速更新、页面的流畅加载和页面自然切换。
+          </blockquote>
+          <ul>
+            <li>
+              基于Angular、Ionic的深度开发，通过预加载、复用Webview实例来加快hybrid页面的打开速度和减少内存占用
+            </li>
+            <li>
+              Hybrid分包的更新机制和相应的平台工具。整个借贷宝App内的hybrid页面模块总大小约30～40MB，通过对页面进行子模块的拆分，通过对应的模块管理发布工具和更新机制，可以针对单独的业务模块进行增量更新，减少用户更新成本和更新的速度，并且增加了业务上线的灵活性，整个过程自动化、流程化，减少上线成本和风险
+            </li>
+            <li>
+              结合业务框架，整套相应的开发工具的支持，包括代码生成、代码编译部署和检查、浏览器模拟和客户端模拟、端内页面调试工具、数据mock工具等配套
+            </li>
+          </ul>
+        </li>
+        <li class="subject">
+          <p>［2013.07 ~ 2016.01］<strong> 百度（贴吧） </strong></p>
+          <blockquote>
+            前端研发工程师（T5），先后负责贴吧基础功能开发，熟悉贴吧业务及核心技术；管理
+            平台化业务前端团队；参与核心技术升级，Bigpipe项目的开发；团队转型后负责过移
+            动端Server开发，了解贴吧后端业务及架构
+          </blockquote>
+          <ul>
+            <li>
+              使用Bigpipe技术进行贴吧流量最大的贴子列表页的渲染优化。将页面划分成多个独立的pagelet，通过管道分段输出即时渲染，减少了请求数量和提高访问速度。
+            </li>
+          </ul>
+        </li>
+        <li class="subject">
+          <p>［2012.07 ~ 2012.10］<strong> 网易 </strong></p>
+          <blockquote>
+            网站部实习，主要负责页面前端功能的JavaScript部分的实现和优化。
+          </blockquote>
+        </li>
+        <li class="subject last-subject">
+          <p>［2009.12 ~ 2011.09］<strong> 校园技术社团经历 </strong></p>
+          <blockquote>
+            自学web开发；在社团进行web技术普及与培训；参与亚运志愿全民行动网开发；Maccha创业团队，在团队中担任网页设计师；计算机网络课程设计，web富交互应用实践；
+          </blockquote>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <h2>Education</h2>
+      <ul>
+        <li>
+          <p>
+            ［2009.09 ~ 2013.07］<strong> 中山大学 </strong>
+            软件工程专业(计算机应用软件方向)
+          </p>
+        </li>
+      </ul>
+      <h2>Language</h2>
+      <ul>
+        <li>
+          英语很好，英文文档阅读无障碍
+        </li>
+      </ul>
+    </footer>
+    <p>&lt;/谭家玮&gt;</p>
+  </body>
+</html>
