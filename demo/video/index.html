@@ -6,6 +6,9 @@
     <title>Document</title>
     <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
     <style>
+      *::-webkit-media-controls-fullscreen-button {
+        display: none;
+      }
       #bgVideo,
       #bgVideoCanvas {
         position: absolute;
@@ -70,7 +73,13 @@
       />
     </video>
     <canvas id="bgVideoCanvas" class="bgVideoCanvas canvas js-canvas"></canvas>
-    <video id="cameraVideo" muted autoplay playsinline x5-video-player-type="h5-page"></video>
+    <video
+      id="cameraVideo"
+      muted
+      autoplay
+      playsinline
+      x5-video-player-type="h5-page"
+    ></video>
     <p id="connectBtn">P</p>
     <script>
       // init vConsole
