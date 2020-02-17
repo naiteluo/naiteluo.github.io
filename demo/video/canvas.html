@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #bgVideo, #bgVideoCanvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+      #cameraVideo {
+        position: absolute;
+        top: 2%;
+        right: 2%;
+        width: 35%;
+        height: auto;
+        border: solid 1px white;
+      }
+      #connectBtn {
+        -webkit-user-select: none;
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background-color: limegreen;
+        box-shadow: rgba(255, 255, 255, 0.7) 1px 1px 3px;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 80px;
+        font-size: 30px;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        vertical-align: middle;
+      }
+      #connectBtn.paused {
+        background-color: maroon;
+      }
+      #connectBtn:active {
+        box-shadow: rgba(255, 255, 255, 1) 1px 1px 5px;
+      }
+    </style>
+  </head>
+  <body style="overflow-x:hidden;">
+    <video id="bgVideo" class="bgVideo video-player" muted>
+      <source
+        src="./vv.mp4"
+        type="video/mp4"
+      />
+    </video>
+    <canvas id="bgVideoCanvas" class="bgVideoCanvas canvas js-canvas"></canvas>
+    <video id="cameraVideo" muted autoplay playsinline></video>
+    <p id="connectBtn">P</p>
+    <script src="./player.js"></script>
+    <script src="./main-canvas.js?123"></script>
+  </body>
+</html>
